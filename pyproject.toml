@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "silver-torch"
+version = "0.1.0"
+description = "Inspectable Silver dataset preprocessing and PyTorch input pipelines."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "Apache-2.0"
+keywords = ["pytorch", "preprocessing", "datasets", "machine-learning", "research"]
+dependencies = []
+
+[project.optional-dependencies]
+pytorch = ["torch>=1.9.0"]
+dev = ["pytest>=7.0.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
