@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 - 2026-08-15
+
+- Coordinated the package release with transformer, GPT-style, and GPU examples.
+
 ## 0.2.0 - 2026-08-15
 
 - Added JSON persistence for fitted preprocessing pipelines so serving processes can

@@ -7,4 +7,4 @@ from .modeling import ModelBlueprint, TransformerConfig, build_model, build_tran
 __all__ = ["SilverPreprocessSpec", "SilverTorchPipeline", "compile_silver", "parse_silver",
            "ModelBlueprint", "TransformerConfig", "build_model", "build_transformer"]
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
