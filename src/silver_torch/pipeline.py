@@ -99,7 +99,15 @@ class SilverTorchPipeline:
         self._require_fit()
         return {name: {"kind": state.kind, "location": state.location,
                        "scale": state.scale, "categories": list(state.categories)}
-                for name, state in self._states.items()}
+                       for name, state in self._states.items()}
+
+    @property
+    def feature_names(self) -> Tuple[str, ...]:
+        return self.spec.features
+
+    @property
+    def label_mapping(self) -> Dict[str, int]:
+        return dict(self._label_mapping)
 
     def fit(self, rows: Iterable[Mapping[str, Any]]) -> "SilverTorchPipeline":
         materialized = list(rows)
@@ -138,6 +146,12 @@ class SilverTorchPipeline:
         self._fitted_rows = len(materialized)
         self._fingerprint = self._hash_rows(materialized)
         return self
+
+    def fit_transform(self, rows: Iterable[Mapping[str, Any]]) -> Tuple[Any, Any]:
+        """Fit on rows and immediately materialize tensors for small workflows."""
+        materialized = list(rows)
+        self.fit(materialized)
+        return self.transform(materialized)
 
     def plan(self, device: str = "cpu") -> CompiledPlan:
         self._require_fit()

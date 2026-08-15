@@ -154,3 +154,16 @@ def test_fitted_pipeline_can_be_saved_and_loaded(tmp_path):
     loaded = restored.transform([{"voltage": 2, "current": 20, "fault": 1}])
     assert original[0].equal(loaded[0])
     assert original[1].equal(loaded[1])
+
+
+def test_fit_transform_exposes_pipeline_metadata():
+    pytest.importorskip("torch")
+    pipeline = compile_silver(PROGRAM).fit([
+        {"voltage": 1, "current": 10, "fault": 0},
+        {"voltage": 3, "current": 30, "fault": 1},
+    ])
+    features, _ = pipeline.fit_transform([
+        {"voltage": 2, "current": 20, "fault": 1},
+    ])
+    assert tuple(features.shape) == (1, 1, 2)
+    assert pipeline.feature_names == ("voltage", "current")
