@@ -9,6 +9,7 @@ import os
 import re
 import tempfile
 import time
+from dataclasses import asdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
@@ -179,6 +180,37 @@ class SilverTorchPipeline:
     def tensors(self, rows: Iterable[Mapping[str, Any]]) -> Tuple[Any, Any]:
         """Backward-compatible alias for :meth:`transform`."""
         return self.transform(rows)
+
+    def save(self, path: str) -> None:
+        """Persist the fitted preprocessing contract without requiring PyTorch."""
+        self._require_fit()
+        payload = {
+            "schema": "silver.torch/fitted-pipeline-1",
+            "spec": asdict(self.spec),
+            "states": {name: asdict(state) for name, state in self._states.items()},
+            "label_mapping": dict(self._label_mapping),
+            "fitted_rows": self._fitted_rows,
+            "fingerprint": self._fingerprint,
+        }
+        Path(path).write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+    @classmethod
+    def load(cls, path: str) -> "SilverTorchPipeline":
+        """Restore a fitted pipeline for inference or serving."""
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        if payload.get("schema") != "silver.torch/fitted-pipeline-1":
+            raise ValueError("unsupported Silver Torch pipeline schema")
+        spec_values = payload["spec"]
+        spec_values["features"] = tuple(spec_values["features"])
+        spec_values["categorical"] = tuple(spec_values["categorical"])
+        pipeline = cls(SilverPreprocessSpec(**spec_values))
+        pipeline._states = {
+            name: ColumnState(**state) for name, state in payload["states"].items()
+        }
+        pipeline._label_mapping = dict(payload.get("label_mapping", {}))
+        pipeline._fitted_rows = int(payload["fitted_rows"])
+        pipeline._fingerprint = str(payload["fingerprint"])
+        return pipeline
 
     def dataloader(self, rows: Iterable[Mapping[str, Any]], device: str = "cpu") -> Any:
         torch = _torch()

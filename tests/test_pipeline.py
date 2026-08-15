@@ -139,3 +139,18 @@ def test_cache_and_benchmark(tmp_path):
     result = pipeline.benchmark(rows, steps=1)
     assert result["samples"] == 1.0
     assert result["samples_per_second"] > 0
+
+
+def test_fitted_pipeline_can_be_saved_and_loaded(tmp_path):
+    pytest.importorskip("torch")
+    pipeline = compile_silver(PROGRAM).fit([
+        {"voltage": 1, "current": 10, "fault": 0},
+        {"voltage": 3, "current": 30, "fault": 1},
+    ])
+    path = tmp_path / "pipeline.json"
+    pipeline.save(str(path))
+    restored = pipeline.load(str(path))
+    original = pipeline.transform([{"voltage": 2, "current": 20, "fault": 1}])
+    loaded = restored.transform([{"voltage": 2, "current": 20, "fault": 1}])
+    assert original[0].equal(loaded[0])
+    assert original[1].equal(loaded[1])
