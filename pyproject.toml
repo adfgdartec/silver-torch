@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "silver-torch"
-version = "0.4.0"
+version = "1.0.0"
 description = "Inspectable Silver dataset preprocessing and PyTorch input pipelines."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -13,10 +13,28 @@ license-files = ["LICENSE"]
 authors = [{name = "Silver Contributors"}]
 keywords = ["pytorch", "preprocessing", "datasets", "machine-learning", "research"]
 dependencies = []
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 
 [project.optional-dependencies]
 pytorch = ["torch>=1.9.0"]
-dev = ["pytest>=7.0.0"]
+dev = [
+    "pytest>=7.0.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+    "ruff>=0.8.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/adfgdartec/silver-torch"
@@ -28,3 +46,6 @@ where = ["src"]
 
 [tool.setuptools.package-dir]
 "" = "src"
+
+[tool.setuptools.package-data]
+silver_torch = ["py.typed"]

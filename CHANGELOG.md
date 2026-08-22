@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0 - 2026-08-22
+
+- Added `SilverTrainer` with deterministic classification/regression loops,
+  automatic CPU/CUDA/MPS selection, gradient clipping, early stopping, best-state
+  restoration, callbacks, evaluation, prediction, and atomic checkpoints.
+- Added a strong inspectable tabular MLP builder and parameter accounting.
+- Added serializable training results and metric histories that feed directly
+  into `silver-diagnostics` and `silver-run`.
+- Added PEP 561 markers, stable classifiers, and a declared 1.0 public API.
+
 ## 0.4.0 - 2026-08-22
 
 - Added complete Apache license and project URL metadata to built distributions.
