@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 - 2026-08-22
+
+- Added complete Apache license and project URL metadata to built distributions.
+- Validated feed-forward width, sequence length, output size, and dropout before
+  constructing transformer modules.
+- Added explicit runtime errors for malformed or overlong transformer inputs.
+- Rejected missing classification labels during fitting.
+- Restored tuple-typed categorical state when loading persisted pipelines.
+- Hardened CI and releases with supported-Python testing and tag/version checks.
+
 ## 0.3.0 - 2026-08-15
 
 - Coordinated the package release with transformer, GPT-style, and GPU examples.

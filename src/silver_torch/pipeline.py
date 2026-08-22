@@ -140,6 +140,8 @@ class SilverTorchPipeline:
                 scale = 1.0
             states[column] = ColumnState("numeric", location, scale)
         if self.spec.label_type == "classification":
+            if any(row.get(self.spec.label) in (None, "") for row in materialized):
+                raise ValueError("classification label cannot be missing")
             labels = sorted({self._as_category(row.get(self.spec.label)) for row in materialized})
             self._label_mapping = {value: index for index, value in enumerate(labels)}
         self._states = states
@@ -219,7 +221,13 @@ class SilverTorchPipeline:
         spec_values["categorical"] = tuple(spec_values["categorical"])
         pipeline = cls(SilverPreprocessSpec(**spec_values))
         pipeline._states = {
-            name: ColumnState(**state) for name, state in payload["states"].items()
+            name: ColumnState(
+                kind=state["kind"],
+                location=state.get("location", 0.0),
+                scale=state.get("scale", 1.0),
+                categories=tuple(state.get("categories", ())),
+            )
+            for name, state in payload["states"].items()
         }
         pipeline._label_mapping = dict(payload.get("label_mapping", {}))
         pipeline._fitted_rows = int(payload["fitted_rows"])

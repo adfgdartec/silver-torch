@@ -21,6 +21,12 @@ class TransformerConfig:
             raise ValueError("transformer dimensions must be positive")
         if self.hidden_size % self.heads:
             raise ValueError("hidden_size must be divisible by heads")
+        if self.feedforward_size is not None and self.feedforward_size < 1:
+            raise ValueError("feedforward_size must be positive")
+        if self.max_sequence_length < 1 or self.output_size < 1:
+            raise ValueError("sequence length and output size must be positive")
+        if not 0.0 <= self.dropout < 1.0:
+            raise ValueError("dropout must be in [0, 1)")
         if self.task not in ("classification", "regression", "language_modeling"):
             raise ValueError("unsupported transformer task")
 
@@ -57,6 +63,10 @@ def build_transformer(config: TransformerConfig) -> Any:
             self.head = nn.Linear(config.hidden_size, config.output_size)
 
         def forward(self, tokens: Any) -> Any:
+            if tokens.ndim != 2:
+                raise ValueError("transformer tokens must have shape (batch, sequence)")
+            if tokens.shape[1] > config.max_sequence_length:
+                raise ValueError("token sequence exceeds max_sequence_length")
             positions = torch.arange(tokens.shape[1], device=tokens.device).unsqueeze(0)
             encoded = self.embedding(tokens) + self.position(positions)
             mask = None

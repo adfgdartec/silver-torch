@@ -167,3 +167,9 @@ def test_fit_transform_exposes_pipeline_metadata():
     ])
     assert tuple(features.shape) == (1, 1, 2)
     assert pipeline.feature_names == ("voltage", "current")
+
+
+def test_fit_rejects_missing_classification_labels():
+    pipeline = compile_silver(PROGRAM.replace("missing median", "missing zero"))
+    with pytest.raises(ValueError, match="classification label"):
+        pipeline.fit([{"voltage": 1, "current": 2, "fault": None}])
