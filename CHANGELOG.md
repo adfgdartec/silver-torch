@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 - 2026-08-23
+
+- Added documented decision-ready layer evidence for architecture and optimization experiments.
+
 ## 1.1.0 - 2026-08-22
 
 - Added `inspect_model()` with actual leaf-layer shapes, parameter counts,

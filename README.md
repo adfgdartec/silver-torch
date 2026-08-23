@@ -111,3 +111,11 @@ CNN, and `[batch, sequence_length, features_per_step]` for RNN/Transformer.
 These are layout contracts, not model implementations. Measure with
 `benchmark()` on the target machine; input speedups depend on storage, CPU,
 worker count, batch size, and accelerator.
+
+## Decision-ready model visuals
+
+`inspect_model(model)` captures real layer shapes, parameters, activation
+statistics, sparsity, and gradient RMS, with a deterministic SVG for review.
+Pass its layer records to `silver-diagnostics.build_debug_plan` to turn dead,
+collapsed, vanishing, or exploding signals into targeted architecture or
+optimization experiments and verify the effect on the next run.
