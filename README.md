@@ -12,6 +12,22 @@ left visible.**
 An optional PyTorch layer for Silver. It turns a small Silver preprocessing
 program into a fitted, inspectable, reusable tensor and `DataLoader` pipeline.
 
+## Every layer, explained
+
+<p align="center"><img src="https://raw.githubusercontent.com/adfgdartec/silver-torch/main/docs/assets/neural-network-inspection.png" alt="Neural-network inputs, hidden layers, activations, gradients, prediction, and training health" width="100%"></p>
+
+```python
+from silver_torch import inspect_model
+
+sample, _ = next(iter(validation_loader))
+inspection = inspect_model(model, sample)
+open("network.svg", "w", encoding="utf-8").write(inspection.to_svg())
+```
+
+The SVG is generated from the model itself: leaf-layer shapes, parameter counts,
+activation mean/variance/sparsity, and current gradient RMS. It works across
+CPU, CUDA, and MPS. Read the [measurement details](docs/neural-visual-inspection.md).
+
 ```bash
 pip install silver-data
 pip install 'silver-torch[pytorch]'

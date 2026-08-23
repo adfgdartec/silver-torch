@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 - 2026-08-22
+
+- Added `inspect_model()` with actual leaf-layer shapes, parameter counts,
+  activation mean/variance/sparsity, and current gradient RMS.
+- Added deterministic, accessible neural-network SVGs that run without a hosted
+  dashboard and follow models across CPU, CUDA, and MPS devices.
+
 ## 1.0.0 - 2026-08-22
 
 - Added `SilverTrainer` with deterministic classification/regression loops,

@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "silver-torch"
-version = "1.0.0"
-description = "Inspectable Silver dataset preprocessing and PyTorch input pipelines."
+version = "1.1.0"
+description = "Inspectable PyTorch training with layer, activation, gradient, and topology visuals."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{name = "Silver Contributors"}]
-keywords = ["pytorch", "preprocessing", "datasets", "machine-learning", "research"]
+keywords = ["pytorch", "model-inspection", "activations", "gradients", "visualization", "machine-learning"]
 dependencies = []
 classifiers = [
     "Development Status :: 5 - Production/Stable",
