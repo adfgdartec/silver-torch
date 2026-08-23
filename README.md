@@ -19,7 +19,8 @@ program into a fitted, inspectable, reusable tensor and `DataLoader` pipeline.
 ```python
 from silver_torch import inspect_model
 
-sample, _ = next(iter(validation_loader))
+# Use the loader created above (or any validation DataLoader).
+sample, _ = next(iter(loader))
 inspection = inspect_model(model, sample)
 open("network.svg", "w", encoding="utf-8").write(inspection.to_svg())
 ```
