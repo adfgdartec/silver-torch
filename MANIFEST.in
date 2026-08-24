@@ -3,6 +3,15 @@ include README.md
 include CHANGELOG.md
 include CONTRIBUTING.md
 include SECURITY.md
+include CODE_OF_CONDUCT.md
 recursive-include docs *.md *.png
 recursive-include src *.py py.typed
 recursive-include tests *.py
+global-exclude dist/*
+global-exclude *.egg-info/*
+global-exclude .git/*
+global-exclude .pytest_cache/*
+global-exclude .mypy_cache/*
+global-exclude .ruff_cache/*
+global-exclude __pycache__/*
+global-exclude *.py[cod]

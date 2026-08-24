@@ -7,7 +7,7 @@ left visible.**
 
 [![PyPI](https://img.shields.io/pypi/v/silver-torch?color=7c3aed)](https://pypi.org/project/silver-torch/)
 [![CI](https://github.com/adfgdartec/silver-torch/actions/workflows/ci.yml/badge.svg)](https://github.com/adfgdartec/silver-torch/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-Apache--2.0-c0c0c0)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-c0c0c0)](https://github.com/adfgdartec/silver-torch/blob/main/LICENSE)
 
 An optional PyTorch layer for Silver. It turns a small Silver preprocessing
 program into a fitted, inspectable, reusable tensor and `DataLoader` pipeline.
@@ -27,7 +27,7 @@ open("network.svg", "w", encoding="utf-8").write(inspection.to_svg())
 
 The SVG is generated from the model itself: leaf-layer shapes, parameter counts,
 activation mean/variance/sparsity, and current gradient RMS. It works across
-CPU, CUDA, and MPS. Read the [measurement details](docs/neural-visual-inspection.md).
+CPU, CUDA, and MPS. Read the [measurement details](https://github.com/adfgdartec/silver-torch/blob/main/docs/neural-visual-inspection.md).
 
 ```bash
 pip install silver-data

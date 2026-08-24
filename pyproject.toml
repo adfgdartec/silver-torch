@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "silver-torch"
-version = "1.4.0"
+version = "1.5.0"
 description = "Inspectable PyTorch training with layer, activation, gradient, and topology visuals."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -14,7 +14,7 @@ authors = [{name = "Silver Contributors"}]
 keywords = ["pytorch", "model-inspection", "activations", "gradients", "visualization", "machine-learning"]
 dependencies = []
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Programming Language :: Python :: 3",
